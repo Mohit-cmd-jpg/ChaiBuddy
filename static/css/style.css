@@ -1,0 +1,213 @@
+/* ----------------------------------------------------
+   GLOBAL
+---------------------------------------------------- */
+:root {
+    --bg: #f7f7f7;
+    --text: #222;
+    --user: #d9f4ff;
+    --bot: #fff;
+    --border: #ddd;
+    --accent: #ffca7a;
+}
+
+body.dark {
+    --bg: #1a1a1a;
+    --text: #eee;
+    --user: #004c6d;
+    --bot: #2b2b2b;
+    --border: #444;
+    --accent: #c58b37;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    transition: background .25s ease, color .25s ease;
+}
+
+/* ----------------------------------------------------
+   TOP BAR
+---------------------------------------------------- */
+.topbar {
+    height: 58px;
+    background: var(--bot);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 18px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* ----------------------------------------------------
+   LAYOUT
+---------------------------------------------------- */
+.container {
+    display: flex;
+    height: calc(100vh - 58px);
+}
+
+/* ----------------------------------------------------
+   SIDEBAR
+---------------------------------------------------- */
+.sidebar {
+    width: 260px;
+    background: var(--bot);
+    border-right: 1px solid var(--border);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-chat-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.chat-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.chat-item:hover {
+    background: var(--user);
+}
+
+.chat-emoji {
+    margin-right: 6px;
+}
+
+.delete-chat {
+    cursor: pointer;
+}
+
+/* ----------------------------------------------------
+   CHAT AREA
+---------------------------------------------------- */
+.chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 18px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 12px 14px;
+    margin: 10px 0;
+    max-width: 75%;
+    border-radius: 10px;
+    line-height: 1.45;
+    animation: fadeIn .25s ease;
+}
+
+.message.user {
+    background: var(--user);
+    margin-left: auto;
+}
+
+.message.bot {
+    background: var(--bot);
+    border: 1px solid var(--border);
+}
+
+/* ----------------------------------------------------
+   INPUT BAR
+---------------------------------------------------- */
+.input-bar {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+}
+
+#input {
+    flex-grow: 1;
+    resize: none;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 16px;
+    background: var(--bot);
+    color: var(--text);
+    outline: none;
+}
+
+.send-btn {
+    width: 52px;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+/* ----------------------------------------------------
+   TYPING DOTS
+---------------------------------------------------- */
+.typing {
+    padding: 10px 18px;
+    display: flex;
+    gap: 5px;
+}
+
+.typing.hidden {
+    display: none;
+}
+
+.typing span {
+    width: 8px;
+    height: 8px;
+    background: var(--text);
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 1.4s infinite both;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes blink {
+    0% { opacity: .2; }
+    20% { opacity: 1; }
+    100% { opacity: .2; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChaiBuddy</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+    <!-- TOP NAV BAR -->
+    <header class="topbar">
+        <div class="brand">
+            🫖 ChaiBuddy
+        </div>
+
+        <div class="theme-toggle">
+            <span id="themeIcon">🌙</span>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <button id="newChat" class="new-chat-btn">+ New Chat</button>
+            <div id="chatList" class="chat-list"></div>
+        </aside>
+
+        <!-- CHAT AREA -->
+        <main class="chat-area">
+
+            <div id="messages" class="messages"></div>
+
+            <!-- TYPING DOTS -->
+            <div id="typingIndicator" class="typing hidden">
+                <span></span><span></span><span></span>
+            </div>
+
+            <!-- INPUT BOX -->
+            <div class="input-bar">
+                <textarea id="input" placeholder="Send a message..." rows="1"></textarea>
+                <button id="sendBtn" class="send-btn">➤</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
