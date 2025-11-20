@@ -102,5 +102,5 @@ Free to use and modify.
 ---
 
 <p align="center">
-  Made with ❤️ by <strong>Mohit Kumar</strong>
+  Made with ❤️ by <strong>Mohit Bindal</strong>
 </p>
