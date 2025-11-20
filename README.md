@@ -8,6 +8,8 @@
 ![Flask](https://img.shields.io/badge/Flask-Framework-black)
 ![Railway](https://img.shields.io/badge/Deployed-Railway-green)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Click_Here-brightgreen)](https://chaibuddy-production-c563.up.railway.app/)
+![Version](https://img.shields.io/badge/Version-1.0-blueviolet)
+![Gemini](https://img.shields.io/badge/Powered_by-Google_Gemini-ff6f61?logo=google)
 
 ![ChaiBuddy Preview](static/img/preview.png)
 
@@ -97,3 +99,8 @@ ChaiBuddy/
 
 ## 📄 License
 Free to use and modify.
+---
+
+<p align="center">
+  Made with ❤️ by <strong>Mohit Kumar</strong>
+</p>
