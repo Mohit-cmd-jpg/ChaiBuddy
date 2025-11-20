@@ -11,6 +11,10 @@
 ![Gemini](https://img.shields.io/badge/Powered_by-Google_Gemini-ff6f61?logo=google)
 
 ---
+![ChaiBuddy Preview](static/img/preview.png)
+
+ChaiBuddy is a simple AI-powered chat assistant built using Flask and **Google Generative AI (Gemini)**.  
+It has a clean user interface and keeps your chat history saved locally on your device.
 
 ## ✨ Features at a Glance
 
