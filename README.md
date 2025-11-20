@@ -4,7 +4,7 @@
 ![Railway](https://img.shields.io/badge/Deployed-Railway-green)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Click_Here-brightgreen)](https://chaibuddy-production-c563.up.railway.app/)
 
-![ChaiBuddy Preview](/mnt/data/Screenshot 2025-11-21 021050.png)
+![ChaiBuddy Preview](static/img/preview.png)
 
 ChaiBuddy is a simple AI-powered chat assistant built using Flask and OpenAI/Google Generative AI.  
 It has a clean user interface and keeps your chat history saved locally on your device.
