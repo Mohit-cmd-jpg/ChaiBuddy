@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="static/img/banner.png" width="100%" />
+</p>
+
 # ChaiBuddy
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
