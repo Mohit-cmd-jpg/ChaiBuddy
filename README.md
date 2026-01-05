@@ -6,7 +6,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![Flask](https://img.shields.io/badge/Flask-Framework-black)
-![Railway](https://img.shields.io/badge/Deployed-Railway-green)
+![Render](img.shields.io)
 ![Version](https://img.shields.io/badge/Version-1.0-blueviolet)
 ![Gemini](https://img.shields.io/badge/Powered_by-Google_Gemini-ff6f61?logo=google)
 
@@ -84,7 +84,7 @@ http://127.0.0.1:5000/
 
 Try the deployed version here:
 
-👉 https://chaibuddy-production-c563.up.railway.app/
+👉 https://chaibuddy-kmwk.onrender.com/
 
 ---
 
