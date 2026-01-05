@@ -6,7 +6,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![Flask](https://img.shields.io/badge/Flask-Framework-black)
-![Render](img.shields.io)
+![Render](https://img.shields.io/badge/Deployed-Render-blue)
 ![Version](https://img.shields.io/badge/Version-1.0-blueviolet)
 ![Gemini](https://img.shields.io/badge/Powered_by-Google_Gemini-ff6f61?logo=google)
 
