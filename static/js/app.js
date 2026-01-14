@@ -28,6 +28,8 @@ const newChatBtn = document.getElementById("newChat");
 const chatList = document.getElementById("chatList");
 const typingIndicator = document.getElementById("typingIndicator");
 const exportPdfBtn = document.getElementById("exportPdfBtn");
+const landing = document.getElementById("landing");
+const landingNewChatBtn = document.getElementById("landingNewChat");
 
 // ================================
 // UI HELPERS
@@ -82,6 +84,7 @@ function loadChat(index) {
     messagesContainer.innerHTML = "";
 
     chat.messages.forEach(m => addMessage(m.text, m.sender));
+    updateLandingVisibility();
 }
 
 function deleteChat(index) {
@@ -97,6 +100,7 @@ function deleteChat(index) {
     }
     messagesContainer.innerHTML = "";
     renderChatList();
+    updateLandingVisibility();
 }
 
 function startNewChat() {
@@ -141,6 +145,7 @@ async function sendMessage() {
     addMessage(text, "user");
     chat.messages.push({ text, sender: "user" });
     saveChats(chats);
+    updateLandingVisibility();
 
     inputBox.value = "";
     showTyping();
@@ -183,6 +188,7 @@ async function sendMessage() {
 
     saveChats(chats);
     renderChatList();
+    updateLandingVisibility();
 }
 
 sendBtn.onclick = sendMessage;
@@ -212,6 +218,18 @@ themeIcon.onclick = () => {
     localStorage.setItem("theme", theme);
     applyTheme();
 };
+
+function updateLandingVisibility() {
+    const chats = loadChats();
+    const index = getActiveChatIndex();
+    const hasSession = index >= 0 && index < chats.length;
+    if (!landing) return;
+    if (hasSession) {
+        landing.classList.add("hidden");
+    } else {
+        landing.classList.remove("hidden");
+    }
+}
 
 function exportCurrentChat() {
     const chats = loadChats();
@@ -254,5 +272,12 @@ if (exportPdfBtn) {
     exportPdfBtn.onclick = exportCurrentChat;
 }
 
-// ================================
+if (landingNewChatBtn) {
+    landingNewChatBtn.onclick = () => {
+        startNewChat();
+        updateLandingVisibility();
+    };
+}
+
 renderChatList();
+updateLandingVisibility();

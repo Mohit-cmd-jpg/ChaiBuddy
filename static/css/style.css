@@ -29,6 +29,10 @@ body {
     transition: background .25s ease, color .25s ease;
 }
 
+.hidden {
+    display: none !important;
+}
+
 /* ----------------------------------------------------
    TOP BAR
 ---------------------------------------------------- */
@@ -90,6 +94,7 @@ body.dark .theme-toggle {
         0 24px 60px rgba(15, 23, 42, 0.25),
         0 0 0 1px rgba(148, 163, 184, 0.15);
     overflow: hidden;
+    animation: floatIn 0.5s ease-out;
 }
 
 body.dark .container {
@@ -209,6 +214,86 @@ body.dark .chat-area {
     padding: 22px 22px 16px 22px;
     overflow-y: auto;
     scroll-behavior: smooth;
+}
+
+.landing {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.landing-inner {
+    max-width: 420px;
+    text-align: center;
+    color: #0f172a;
+    animation: floatSoft 0.7s ease-out;
+}
+
+body.dark .landing-inner {
+    color: #e5e7eb;
+}
+
+.landing-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    margin: 0 auto 12px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    background: radial-gradient(circle at 30% 0, #fbbf24, #f97316, #ec4899);
+    box-shadow: 0 20px 40px rgba(248, 113, 113, 0.35);
+    animation: pulseGlow 2.2s infinite ease-in-out;
+}
+
+.landing-inner h1 {
+    margin: 4px 0 8px 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.landing-inner p {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #6b7280;
+}
+
+body.dark .landing-inner p {
+    color: #9ca3af;
+}
+
+.landing-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.primary-pill {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    color: #f9fafb;
+    box-shadow: 0 14px 30px rgba(59, 130, 246, 0.6);
+    transform: translateY(0);
+    transition: transform 0.1s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.primary-pill:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow: 0 18px 38px rgba(59, 130, 246, 0.7);
+}
+
+.primary-pill:active {
+    transform: translateY(0);
+    box-shadow: 0 10px 22px rgba(59, 130, 246, 0.5);
 }
 
 .message {
@@ -359,6 +444,21 @@ body.dark .chat-area {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes floatSoft {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 16px 34px rgba(248, 113, 113, 0.35); }
+    50% { transform: translateY(-2px) scale(1.03); box-shadow: 0 22px 44px rgba(248, 113, 113, 0.5); }
 }
 
 @media (max-width: 900px) {

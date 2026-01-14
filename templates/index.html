@@ -34,6 +34,17 @@
         <!-- CHAT AREA -->
         <main class="chat-area">
 
+            <div id="landing" class="landing">
+                <div class="landing-inner">
+                    <div class="landing-icon">🫖</div>
+                    <h1>Welcome to ChaiBuddy</h1>
+                    <p>Your cozy AI companion for chats, ideas, and late-night thoughts.</p>
+                    <div class="landing-actions">
+                        <button id="landingNewChat" class="primary-pill">Start a new chat</button>
+                    </div>
+                </div>
+            </div>
+
             <div id="messages" class="messages"></div>
 
             <!-- TYPING DOTS -->
@@ -43,8 +54,8 @@
 
             <!-- INPUT BOX -->
             <div class="input-bar">
-                <textarea id="input" placeholder="Send a message..." rows="1"></textarea>
-                <button id="exportPdfBtn" class="secondary-btn">PDF</button>
+                <textarea id="input" placeholder="Brew a thought and press Enter..." rows="1"></textarea>
+                <button id="exportPdfBtn" class="secondary-btn" title="Download this chat as PDF">Download</button>
                 <button id="sendBtn" class="send-btn">➤</button>
             </div>
         </main>
