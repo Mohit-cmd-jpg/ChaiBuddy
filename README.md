@@ -29,6 +29,9 @@ It has a clean user interface and keeps your chat history saved locally on your 
 - AI Chatbot powered by **Google Gemini**  
 - Clean and responsive UI  
 - Chat history saved locally on your device  
+- Light/Dark theme toggle with persistent preference  
+- Multi-chat sessions with smart titles  
+- Export current chat to PDF via browser  
 - Works on all screen sizes  
 - Deployed using Railway  
 
@@ -107,11 +110,8 @@ ChaiBuddy/
 
 ## ✨ Future Improvements
 
-- Light/Dark theme toggle  
-- Multi-chat sessions  
 - Sync chats across devices  
 - Database support (PostgreSQL / MongoDB)  
-- Export chat to PDF  
 
 ---
 

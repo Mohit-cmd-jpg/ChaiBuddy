@@ -27,6 +27,7 @@ const sendBtn = document.getElementById("sendBtn");
 const newChatBtn = document.getElementById("newChat");
 const chatList = document.getElementById("chatList");
 const typingIndicator = document.getElementById("typingIndicator");
+const exportPdfBtn = document.getElementById("exportPdfBtn");
 
 // ================================
 // UI HELPERS
@@ -49,11 +50,12 @@ function hideTyping() {
 
 function renderChatList() {
     const chats = loadChats();
+    const activeIndex = getActiveChatIndex();
     chatList.innerHTML = "";
 
     chats.forEach((chat, index) => {
         const item = document.createElement("div");
-        item.className = "chat-item";
+        item.className = index === activeIndex ? "chat-item active" : "chat-item";
 
         item.innerHTML = `
             <span class="chat-emoji">🫖</span>
@@ -86,7 +88,13 @@ function deleteChat(index) {
     let chats = loadChats();
     chats.splice(index, 1);
     saveChats(chats);
-    setActiveChatIndex(-1);
+    if (chats.length === 0) {
+        setActiveChatIndex(-1);
+    } else if (index >= chats.length) {
+        setActiveChatIndex(chats.length - 1);
+    } else {
+        setActiveChatIndex(index);
+    }
     messagesContainer.innerHTML = "";
     renderChatList();
 }
@@ -204,6 +212,47 @@ themeIcon.onclick = () => {
     localStorage.setItem("theme", theme);
     applyTheme();
 };
+
+function exportCurrentChat() {
+    const chats = loadChats();
+    const index = getActiveChatIndex();
+    if (index < 0 || index >= chats.length) return;
+    const chat = chats[index];
+    if (!chat || !chat.messages || chat.messages.length === 0) return;
+
+    const title = chat.title || "ChaiBuddy Chat";
+    const safeTitle = String(title).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    let html = "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>" + safeTitle + "</title>";
+    html += "<style>body{font-family:Arial,Helvetica,sans-serif;padding:24px;color:#111827;background:#f9fafb;}h1{margin-top:0;margin-bottom:8px;}h2{margin-top:0;color:#6b7280;font-size:14px;font-weight:500;}p{margin:6px 0;font-size:14px;line-height:1.5;}strong{color:#111827;}</style>";
+    html += "</head><body>";
+    html += "<h1>" + safeTitle + "</h1>";
+    html += "<h2>Exported from ChaiBuddy</h2>";
+
+    chat.messages.forEach(m => {
+        const label = m.sender === "user" ? "You" : "ChaiBuddy";
+        const safeText = String(m.text || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/\n/g, "<br>");
+        html += "<p><strong>" + label + ":</strong> " + safeText + "</p>";
+    });
+
+    html += "</body></html>";
+
+    const w = window.open("", "_blank");
+    if (!w) return;
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    w.print();
+}
+
+if (exportPdfBtn) {
+    exportPdfBtn.onclick = exportCurrentChat;
+}
 
 // ================================
 renderChatList();
