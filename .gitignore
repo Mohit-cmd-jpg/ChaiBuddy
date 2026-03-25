@@ -53,3 +53,4 @@ history/
 credentials.json
 secrets.json
 
+.vercel
