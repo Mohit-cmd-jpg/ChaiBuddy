@@ -55,7 +55,11 @@ const Elements = {
     chatSearch: document.getElementById("chatSearch"),
     messageMenu: document.getElementById("messageMenu"),
     sunIcon: document.querySelector(".sun-icon"),
-    moonIcon: document.querySelector(".moon-icon")
+    moonIcon: document.querySelector(".moon-icon"),
+    themeText: document.querySelector(".theme-text"),
+    openSidebarBtn: document.getElementById("openSidebar"),
+    closeSidebarBtn: document.getElementById("closeSidebar"),
+    sidebar: document.getElementById("sidebar")
 };
 
 // ====================================================
@@ -71,12 +75,14 @@ const Theme = {
     apply(theme) {
         if (theme === "dark") {
             document.body.classList.add("dark");
-            Elements.sunIcon.classList.add("hidden");
-            Elements.moonIcon.classList.remove("hidden");
-        } else {
-            document.body.classList.remove("dark");
             Elements.sunIcon.classList.remove("hidden");
             Elements.moonIcon.classList.add("hidden");
+            if(Elements.themeText) Elements.themeText.textContent = "Light mode";
+        } else {
+            document.body.classList.remove("dark");
+            Elements.sunIcon.classList.add("hidden");
+            Elements.moonIcon.classList.remove("hidden");
+            if(Elements.themeText) Elements.themeText.textContent = "Dark mode";
         }
         Storage.setTheme(theme);
     },
@@ -164,39 +170,42 @@ const ChatManager = {
         messageGroup.className = `message-group ${sender}`;
         messageGroup.dataset.messageIndex = messageIndex;
         
-        const message = document.createElement("div");
-        message.className = `message ${sender}`;
-        message.textContent = text;
-        
-        const timeStr = timestamp ? new Date(timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        const wrapper = document.createElement("div");
+        wrapper.className = "message-wrapper";
         
         if (sender === "bot") {
-            const actions = document.createElement("div");
-            actions.className = "message-actions";
-            
-            const copyBtn = document.createElement("button");
-            copyBtn.className = "message-action-btn";
-            copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>';
-            copyBtn.title = "Copy message";
-            copyBtn.onclick = () => this.copyToClipboard(text);
-            
-            const deleteBtn = document.createElement("button");
-            deleteBtn.className = "message-action-btn";
-            deleteBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
-            deleteBtn.title = "Delete message";
-            deleteBtn.onclick = () => this.deleteMessage(messageIndex);
-            
-            actions.appendChild(copyBtn);
-            actions.appendChild(deleteBtn);
-            message.appendChild(actions);
+            const avatar = document.createElement("div");
+            avatar.className = "message-avatar";
+            avatar.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>`;
+            wrapper.appendChild(avatar);
         }
         
-        const timestampEl = document.createElement("div");
-        timestampEl.className = "message-timestamp";
-        timestampEl.textContent = timeStr;
+        const contentBlock = document.createElement("div");
+        contentBlock.className = `message-content ${sender}`;
+        contentBlock.innerHTML = text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br/>");
         
-        messageGroup.appendChild(message);
-        messageGroup.appendChild(timestampEl);
+        wrapper.appendChild(contentBlock);
+        
+        const actions = document.createElement("div");
+        actions.className = "message-actions";
+        
+        const copyBtn = document.createElement("button");
+        copyBtn.className = "action-icon";
+        copyBtn.title = "Copy";
+        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="icon-md" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>';
+        copyBtn.onclick = () => this.copyToClipboard(text);
+        
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "action-icon";
+        deleteBtn.title = "Delete";
+        deleteBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="icon-md" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>';
+        deleteBtn.onclick = () => this.deleteMessage(messageIndex);
+        
+        actions.appendChild(copyBtn);
+        actions.appendChild(deleteBtn);
+        
+        wrapper.appendChild(actions);
+        messageGroup.appendChild(wrapper);
         Elements.messagesList.appendChild(messageGroup);
     },
     
@@ -475,6 +484,26 @@ function init() {
     setupSearch();
     setupKeyboardShortcuts();
     setupSuggestedPrompts();
+    
+    // Sidebar Mobile Toggle Setup
+    if(Elements.openSidebarBtn) {
+        Elements.openSidebarBtn.onclick = () => Elements.sidebar.classList.add('open');
+    }
+    if(Elements.closeSidebarBtn) {
+        Elements.closeSidebarBtn.onclick = () => Elements.sidebar.classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+        if(window.innerWidth <= 768 && Elements.sidebar.classList.contains('open')) {
+            if(!Elements.sidebar.contains(e.target) && !Elements.openSidebarBtn.contains(e.target)) {
+                Elements.sidebar.classList.remove('open');
+            }
+        }
+    });
+    
+    // Connect new mobile chat button
+    const mobileNew = document.getElementById('mobileNewChat');
+    if(mobileNew) mobileNew.onclick = () => ChatManager.createNewChat();
+
     
     const chats = Storage.loadChats();
     if (chats.length === 0) {
