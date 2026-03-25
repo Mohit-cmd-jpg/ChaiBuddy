@@ -313,10 +313,11 @@ const MessageHandler = {
         let chats = Storage.loadChats();
         let index = Storage.getActiveChatIndex();
         
-        if (index < 0) {
+        if (index < 0 || !chats[index]) {
             ChatManager.createNewChat();
             chats = Storage.loadChats();
-            index = Storage.getActiveChatIndex();
+            index = 0;
+            Storage.setActiveChatIndex(0);
         }
         
         const chat = chats[index];
@@ -378,13 +379,14 @@ const MessageHandler = {
             }
             
             // Update title if it's still 'New Chat'
-            const activeChat = Storage.getActiveChat();
-            if (activeChat && activeChat.title === "New Chat") {
+            if (chats[index].title === "New Chat") {
                 const titleToUse = data.generated_title || (text.slice(0, 30) + (text.length > 30 ? "..." : ""));
-                ChatManager.updateChatTitle(titleToUse);
+                chats[index].title = titleToUse;
+                ChatManager.renderList();
             }
             
             Storage.saveChats(chats);
+            this.isTyping = false;
             ChatManager.scrollToBottom();
             
         } catch (error) {
