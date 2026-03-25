@@ -235,7 +235,6 @@ const ChatManager = {
     
     showEmpty() {
         Elements.emptyState.classList.remove("hidden");
-        Elements.messagesContainer.classList.add("hidden");
         Elements.messagesList.classList.add("hidden");
     },
     
@@ -302,9 +301,14 @@ const ChatManager = {
 // MESSAGE HANDLING
 // ====================================================
 const MessageHandler = {
+    isTyping: false, // Added property
     async sendMessage() {
         const text = Elements.input.value.trim();
-        if (!text) return;
+        if (!text || this.isTyping) return;
+        
+        this.isTyping = true;
+        Elements.input.value = "";
+        Elements.input.style.height = "auto";
         
         let chats = Storage.loadChats();
         let index = Storage.getActiveChatIndex();
@@ -323,8 +327,6 @@ const MessageHandler = {
         ChatManager.addMessageToDOM(text, "user", timestamp);
         Storage.saveChats(chats);
         
-        Elements.input.value = "";
-        Elements.input.style.height = "auto";
         this.showTyping();
         Elements.sendBtn.disabled = true;
         
@@ -375,9 +377,11 @@ const MessageHandler = {
                 };
             }
             
-            // Update title if default
-            if (chat.title === "New Chat" && data.generated_title) {
-                ChatManager.updateChatTitle(data.generated_title);
+            // Update title if it's still 'New Chat'
+            const activeChat = Storage.getActiveChat();
+            if (activeChat && activeChat.title === "New Chat") {
+                const titleToUse = data.generated_title || (text.slice(0, 30) + (text.length > 30 ? "..." : ""));
+                ChatManager.updateChatTitle(titleToUse);
             }
             
             Storage.saveChats(chats);

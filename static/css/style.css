@@ -13,11 +13,11 @@
     --c-assistant-msg-light: transparent;
     
     /* DARK THEME VARIABLES (Default ChatGPT Dark) */
-    --c-bg-dark: #212121;
-    --c-bg-dark-secondary: #171717; /* Sidebar */
-    --c-text-dark: #ececf1;
+    --c-bg-dark: #0d0d0d;
+    --c-bg-dark-secondary: #000000;
+    --c-text-dark: #ececec;
     --c-text-dark-secondary: #b4b4b4;
-    --c-border-dark: #383838;
+    --c-border-dark: #2f2f2f;
     
     --c-user-msg-dark: #2f2f2f;
     --c-assistant-msg-dark: transparent;
@@ -272,11 +272,12 @@ html, body {
    MESSAGES AREA
 ==================================================== */
 .messages-container {
-    flex: 1 1 0%;
+    flex: 1 1 auto;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    position: relative;
 }
 
 .messages-list {
@@ -289,9 +290,12 @@ html, body {
 .empty-state {
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 20px;
+    text-align: center;
+    min-height: 400px;
 }
 
 .empty-content {
@@ -306,10 +310,18 @@ html, body {
     height: 64px;
 }
 
-.empty-content h2 {
-    font-size: 28px;
+.empty-content h1 {
+    font-size: 2.5rem;
     font-weight: 600;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--text-main), var(--text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.empty-content p {
+    font-size: 1rem;
+    color: var(--text-muted);
 }
 
 .suggested-prompts-grid {
@@ -495,9 +507,12 @@ html, body {
     background: var(--input-bg);
     border-radius: 26px;
     padding: 10px 12px 10px 20px;
-    box-shadow: 0 0 20px var(--c-pill-shadow);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px var(--c-pill-shadow);
+    transition: all 0.2s ease;
     border: 1px solid var(--input-border);
+    max-width: 800px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
 }
 
 .input-wrapper:focus-within {
