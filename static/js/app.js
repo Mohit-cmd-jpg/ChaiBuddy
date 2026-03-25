@@ -155,6 +155,7 @@ const ChatManager = {
     
     renderMessages(chat) {
         Elements.messagesList.innerHTML = "";
+        Elements.messagesList.classList.remove("hidden");
         Elements.messagesContainer.classList.remove("hidden");
         Elements.emptyState.classList.add("hidden");
         
@@ -235,6 +236,7 @@ const ChatManager = {
     showEmpty() {
         Elements.emptyState.classList.remove("hidden");
         Elements.messagesContainer.classList.add("hidden");
+        Elements.messagesList.classList.add("hidden");
     },
     
     renderList(filter = "") {
@@ -518,6 +520,7 @@ function init() {
     }
     
     ChatManager.renderList();
+    Elements.input.focus();
 }
 
 // Start the app when DOM is ready

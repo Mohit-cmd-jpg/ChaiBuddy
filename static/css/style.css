@@ -23,8 +23,10 @@
     --c-assistant-msg-dark: transparent;
     
     /* UNIVERSAL */
-    --c-accent: #10a37f; /* ChatGPT Green, used sparingly but iconic */
-    --c-focus: rgba(16, 163, 127, 0.4);
+    --c-accent: #10a37f; /* ChatGPT Green */
+    --c-bg-pill: #2f2f2f;
+    --c-pill-border: #424242;
+    --c-pill-shadow: rgba(0,0,0,0.2);
     
     --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     
@@ -37,9 +39,10 @@
     
     --bg-user-msg: var(--c-user-msg-dark);
     --bg-assistant-msg: var(--c-assistant-msg-dark);
-    --sidebar-hover: #202020;
-    --sidebar-active: #202020;
-    --input-bg: transparent;
+    --sidebar-hover: #212121;
+    --sidebar-active: #212121;
+    --input-bg: var(--c-bg-pill);
+    --input-border: var(--c-pill-border);
 }
 
 body:not(.dark) {
@@ -53,6 +56,8 @@ body:not(.dark) {
     --bg-assistant-msg: var(--c-assistant-msg-light);
     --sidebar-hover: #ececec;
     --sidebar-active: #e5e5e5;
+    --input-bg: #fff;
+    --input-border: #e5e5e5;
 }
 
 * {
@@ -267,10 +272,11 @@ html, body {
    MESSAGES AREA
 ==================================================== */
 .messages-container {
-    flex: 1;
+    flex: 1 1 0%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    min-height: 0;
 }
 
 .messages-list {
@@ -339,7 +345,7 @@ html, body {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 24px 16px;
+    padding: 18px 16px;
 }
 
 /* Wrapper to constrain max width to standard 48rem/768px */
@@ -375,16 +381,16 @@ html, body {
 }
 
 .message-avatar {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: var(--c-accent);
-    color: white;
+    background: transparent;
+    color: var(--c-accent);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .message-content.bot {
@@ -486,13 +492,12 @@ html, body {
     display: flex;
     align-items: flex-end;
     gap: 8px;
-    /* ChatGPT Input styling */
-    background: var(--bg-user-msg);
-    border-radius: 24px;
-    padding: 10px 10px 10px 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    transition: background 0.2s, box-shadow 0.2s;
-    border: 1px solid transparent;
+    background: var(--input-bg);
+    border-radius: 26px;
+    padding: 10px 12px 10px 20px;
+    box-shadow: 0 0 20px var(--c-pill-shadow);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--input-border);
 }
 
 .input-wrapper:focus-within {
