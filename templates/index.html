@@ -3,62 +3,140 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChaiBuddy</title>
+    <title>ChaiBuddy - AI Chat Assistant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
-
-    <!-- TOP NAV BAR -->
-    <header class="topbar">
-        <div class="brand">
-            🫖 ChaiBuddy
-        </div>
-
-        <div class="theme-toggle">
-            <span id="themeIcon">🌙</span>
-        </div>
-    </header>
-
-    <!-- MAIN LAYOUT -->
-    <div class="container">
-
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        
         <!-- SIDEBAR -->
         <aside class="sidebar">
-            <button id="newChat" class="new-chat-btn">+ New Chat</button>
-            <div id="chatList" class="chat-list"></div>
+            <div class="sidebar-header">
+                <button class="new-chat-btn" id="newChat">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Chat
+                </button>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="search-box">
+                    <input type="text" id="chatSearch" placeholder="Search chats..." />
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+
+                <div class="chat-list-container">
+                    <div id="chatList" class="chat-list"></div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
         </aside>
 
         <!-- CHAT AREA -->
-        <main class="chat-area">
-
-            <div id="landing" class="landing">
-                <div class="landing-inner">
-                    <div class="landing-icon">🫖</div>
+        <main class="chat-container">
+            
+            <!-- EMPTY STATE -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-content">
+                    <div class="logo">🫖</div>
                     <h1>Welcome to ChaiBuddy</h1>
-                    <p>Your cozy AI companion for chats, ideas, and late-night thoughts.</p>
-                    <div class="landing-actions">
-                        <button id="landingNewChat" class="primary-pill">Start a new chat</button>
+                    <p>Your AI companion for thoughtful conversations</p>
+                    
+                    <div class="suggested-prompts">
+                        <p class="suggestions-title">Try asking:</p>
+                        <button class="suggestion-btn" data-prompt="Help me brainstorm ideas for a new project">
+                            💡 Help me brainstorm ideas for a project
+                        </button>
+                        <button class="suggestion-btn" data-prompt="Explain quantum computing in simple terms">
+                            🔬 Explain quantum computing
+                        </button>
+                        <button class="suggestion-btn" data-prompt="What are some productivity tips?">
+                            ⚡ Give me productivity tips
+                        </button>
+                        <button class="suggestion-btn" data-prompt="Write me a short story about adventure">
+                            📖 Write me a short story
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div id="messages" class="messages"></div>
-
-            <!-- TYPING DOTS -->
-            <div id="typingIndicator" class="typing hidden">
-                <span></span><span></span><span></span>
+            <!-- MESSAGES -->
+            <div id="messagesContainer" class="messages-container hidden">
+                <div id="messagesList" class="messages-list"></div>
             </div>
 
-            <!-- INPUT BOX -->
-            <div class="input-bar">
-                <textarea id="input" placeholder="Brew a thought and press Enter..." rows="1"></textarea>
-                <button id="exportPdfBtn" class="secondary-btn" title="Download this chat as PDF">Download</button>
-                <button id="sendBtn" class="send-btn">➤</button>
+            <!-- TYPING INDICATOR -->
+            <div id="typingIndicator" class="typing-indicator hidden">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+
+            <!-- INPUT AREA -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="input" 
+                        class="message-input" 
+                        placeholder="Message ChaiBuddy..." 
+                        rows="1"
+                    ></textarea>
+                    <button id="sendBtn" class="send-btn" title="Send message (Ctrl+Enter)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16.6915026,12.4744748 L3.50612381,13.2599618 C3.19218622,13.2599618 3.03521743,13.4170592 3.03521743,13.5741566 L1.15159189,20.0151496 C0.8376543,20.8006365 0.99,21.89 1.77946707,22.52 C2.41,22.99 3.50612381,23.1 4.13399899,22.8429026 L21.714504,14.0454487 C22.6563168,13.5741566 23.1272231,12.6315722 22.6563168,11.6889879 L4.13399899,1.16346272 C3.34915502,0.9 2.40734225,1.00636533 1.77946707,1.4776575 C0.994623095,2.10604706 0.837654326,3.0486314 1.15159189,3.99721575 L3.03521743,10.4382088 C3.03521743,10.5953061 3.19218622,10.7524035 3.50612381,10.7524035 L16.6915026,11.5378905 C16.6915026,11.5378905 17.1624089,11.5378905 17.1624089,12.0091827 C17.1624089,12.4744748 16.6915026,12.4744748 16.6915026,12.4744748 Z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <p class="input-hint">ChaiBuddy can make mistakes. See our <a href="https://example.com/terms" target="_blank">terms of service</a>.</p>
             </div>
         </main>
+    </div>
+
+    <!-- MESSAGE MENU (context menu) -->
+    <div id="messageMenu" class="message-menu hidden">
+        <button class="menu-item" data-action="copy">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            </svg>
+            Copy
+        </button>
+        <button class="menu-item" data-action="delete">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+            Delete
+        </button>
     </div>
 
     <script src="/static/js/app.js"></script>

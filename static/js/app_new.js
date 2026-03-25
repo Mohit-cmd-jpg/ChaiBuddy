@@ -230,7 +230,7 @@ const ChatManager = {
     
     renderList(filter = "") {
         const chats = Storage.loadChats();
-        const activeIndex = Storage.getActiveChatIndex();
+const activeIndex = Storage.getActiveChatIndex();
         Elements.chatList.innerHTML = "";
         
         const filteredChats = chats.filter(chat => 
