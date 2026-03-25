@@ -92,14 +92,14 @@ if not gemini_api_key:
     raise ValueError("GEMINI_API_KEY environment variable is required")
 
 genai.configure(api_key=gemini_api_key)
-gemini_model = genai.GenerativeModel("models/gemini-2.5-flash")
+gemini_model = genai.GenerativeModel("models/gemini-1.5-flash")
 
 # Model Selection
 PRIMARY_MODELS = {
-    "claude": "claude-3-5-sonnet",  # GitHub's Claude 3.5 Sonnet
-    "gpt4": "gpt-4o"                # GitHub's GPT-4 Optimized
+    "claude": "claude-3-5-sonnet-20241022", # Correct GitHub ID
+    "gpt4": "gpt-4o"                        # GitHub's GPT-4 Optimized
 }
-PRIMARY_MODEL = PRIMARY_MODELS["claude"]  # Start with Claude 3.5 Sonnet
+PRIMARY_MODEL = PRIMARY_MODELS["gpt4"]  # Use GPT-4o as primary for reliability
 
 logger.info(f"Primary model: {PRIMARY_MODEL} (via GitHub Models)")
 logger.info(f"Fallback model: gemini-2.5-flash (via Google)")
