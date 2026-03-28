@@ -1,5 +1,7 @@
 # ChaiBuddy ☕
 
+![Dashboard](static/img/dashboard.png)
+
 ChaiBuddy is a modern, responsive, and sleek AI chat companion featuring a beautiful user interface modeled after industry standards (like ChatGPT). Built with a lightweight Flask backend and a vanilla HTML/CSS/JS frontend, it focuses on pure performance and aesthetics.
 
 ## 🌐 Live Website
